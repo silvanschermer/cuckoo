@@ -3,12 +3,13 @@
 namespace Cuckoo;
 
 use Cuckoo\Config\Configuration;
-use Cuckoo\Router;
+use Cuckoo\Http\Router;
 
 class Kernel
 {
-    public static function start()
+    public static function start() : void
     {
         (new Configuration())->handleUserConfigugration();
+        (new Router)->handleRequest();
     }
 }

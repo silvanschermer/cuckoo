@@ -15,15 +15,17 @@ class Configuration
         $this->config = Yaml::parseFile(dirname(__FILE__) . '/config.yaml');        
     }
 
-    public function handleUserConfigugration()
+    public function handleUserConfigugration() : void
     {
         $this->handleDebugMode();
     }
 
-    private function handleDebugMode()
+    private function handleDebugMode() : void
     {        
         if ((new self())->isDebug()) {
             ini_set('display_errors', 'on');
+        } else {
+            ini_set('display_errors', 'off');
         }
     }
 
