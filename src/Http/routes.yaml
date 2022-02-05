@@ -1,4 +1,7 @@
 Routes:
+  /:
+    Methods: GET
+    Controller: 
   /hello:
     Methods: post get
     Controller: Controller::Hello
