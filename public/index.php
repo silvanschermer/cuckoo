@@ -12,7 +12,7 @@ try {
     Kernel::start();
     
 } catch (\Exception $e) {
-    // TODO: Handle Exception Handler here
+    // TODO: Exception Handler here
     echo '<pre>';
     var_dump($e);
     die;

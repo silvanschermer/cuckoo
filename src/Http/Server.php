@@ -13,13 +13,13 @@ class Server
         $this->server = (object) $_SERVER;
     }
 
-    public function getRequestedRoute()
+    public function requestMethod()
     {
-
+        return $this->server->REQUEST_METHOD;
     }
 
-    public function getHttpRequestType()
+    public function getRequestedUrl() : string
     {
-
+        return $this->server->REQUEST_URI;
     }
 }
