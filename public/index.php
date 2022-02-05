@@ -13,7 +13,15 @@ try {
     
 } catch (\Exception $e) {
     // TODO: Exception Handler here
-    echo '<pre>';
-    var_dump($e);
+    if (! Configuration::isDebug()) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['Error' => ['Message' => 'An Unexpected Error Occured. Contact a  site admin.'] ]);
+        
+    } else {
+        echo '<pre>';
+        var_dump($e);
+    }
     die;
+
+
 }
