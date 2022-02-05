@@ -1,0 +1,16 @@
+{
+    "name": "silvan/cuckoo",
+    "description": "A simple Framework Made to say Hi!",
+    "authors": [
+        {
+            "name": "Silvan Schermer",
+            "email": "dev@silvanschermer.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Cuckoo\\": "src/"}
+    },
+    "require": {
+        "symfony/yaml": "^5.4"
+    }
+}
