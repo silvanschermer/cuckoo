@@ -4,6 +4,9 @@ namespace Cuckoo\Http;
 
 use stdClass;
 
+/**
+ * $_SERVER but cast to Object with getters and setters
+ *  @package Cuckoo\Http */
 class Server
 {
     private \stdClass $server;
@@ -13,7 +16,7 @@ class Server
         $this->server = (object) $_SERVER;
     }
 
-    public function requestMethod()
+    public function getRequestMethod()
     {
         return $this->server->REQUEST_METHOD;
     }

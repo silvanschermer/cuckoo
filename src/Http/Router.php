@@ -11,9 +11,11 @@ use Symfony\Component\Yaml\Yaml;
 class Router
 {
 
-    private array $routes = array();
+    private array $routes = array(); // parsed array from routes.yaml
+    private Route $route; // The requested Route but as an object
     private Server $server;
-    // TODO: Inject Routes
+    // TODO: DI Cointainer injects current route
+
     public function __construct()
     {
         $routeConfigFileValues = Yaml::parseFile(dirname(__FILE__) . '/routes.yaml');
@@ -23,11 +25,11 @@ class Router
         }
         $this->routes = $routeConfigFileValues['Routes'];
 
-        $this->getServer(); // TODO: move to kernend and inject
+        $this->server = $this->getServer();
     }
 
     /**
-     * This will ompare the current request to a matching routing entry.
+     * This will compare the current request to a matching routing entry.
      * If it is found and checks complete a viable controller function is called and.
      * 
      * @return void 
@@ -42,8 +44,9 @@ class Router
             throw new RouteNotFoundException($routeName);
         }
 
-        $route = new Route( $routeName, $this->routes[$routeName] );
-        $method = $this->server->requestMethod();
+        $route = new Route( $routeName, $this->routes[$routeName] ); // TODO: eill be moved to DI container + initialization at constructor
+        $method = $this->server->getRequestMethod();
+
         if( ! $route->isAllowedMethod($method) ) {
             throw new HttpMethodNotSupportedByRouteException($method, $routeName);
         }
@@ -66,7 +69,7 @@ class Router
      * @return \Cuckoo\Http\Server  */
     public function getServer() : Server
     {
-        return $this->server =  (new Server());
+        return (new Server());
     }
 
 }
