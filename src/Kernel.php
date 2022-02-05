@@ -20,6 +20,6 @@ class Kernel
     public static function start() : void
     {
         (new Configuration())->handleUserConfigugration();
-        (new Router)->handleRequest();
+        (new Router())->handleRequest();
     }
 }
