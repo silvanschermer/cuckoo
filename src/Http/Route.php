@@ -7,11 +7,16 @@ class Route
 
     private array $methods = array();
     private string $name = '';
+    private string $controller = '';
+    private string $controllerFunction = '';
 
-    public function __construct(string $name, array $methods)
+    public function __construct(string $name, array $definition)
     {
+        // TODO: check $definition and if it contains all required keys and if they are set -> check if the methods are valid https methods -> then check if the controller and funciton exists -> if they are callable
         $this->name = $name;
-        $this->methods = $methods;
+        $this->methods = $definition;
+        $this->controller = '';
+        $this->controllerFunction = '';
     }
 
     public function getMethods(): array
@@ -42,4 +47,7 @@ class Route
     {
         return in_array($httpMethod, $this->getMethods());
     }
+
+    private function setUpRouteDefinition()
+    {}
 }

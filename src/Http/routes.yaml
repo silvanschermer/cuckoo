@@ -4,4 +4,4 @@ Routes:
     Controller: 
   /hello:
     Methods: post get
-    Controller: Controller::Hello
+    Controller: Http\Controllers\Controller::Index
