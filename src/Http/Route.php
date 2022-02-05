@@ -48,6 +48,9 @@ class Route
         return in_array($httpMethod, $this->getMethods());
     }
 
-    private function setUpRouteDefinition() // TODO: NEXT
+    /** 
+     * This Method Will get the route array parsed from the routes.yaml and do all the ncecessary checks on it throw exceptions when something is off or just set all values on this classes properties if all goes well.
+     * @return void  */
+    private function setUpRouteDefinition() : void // TODO: NEXT
     {}
 }

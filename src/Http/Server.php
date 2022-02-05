@@ -16,7 +16,7 @@ class Server
         $this->server = (object) $_SERVER;
     }
 
-    public function getRequestMethod()
+    public function getRequestMethod() : string
     {
         return $this->server->REQUEST_METHOD;
     }
