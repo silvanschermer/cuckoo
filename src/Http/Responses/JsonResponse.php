@@ -19,6 +19,7 @@ final class JsonResponse implements IResponse
             throw new NotAJsonBodyException();
         }
         
+        // TODO: Abstract these away
         http_response_code($statusCode);
         header('Content-Type: application/json; charset=utf-8');
 
