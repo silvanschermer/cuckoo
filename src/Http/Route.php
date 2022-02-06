@@ -121,7 +121,7 @@ class Route
 
     public function call($request = array())
     {
-        // TODO : replace request array with the request interface / base class
-        call_user_func($this->controller, $request);
+        $callables = explode('::', $this->controller);
+        call_user_func( array( new $callables[0], $callables[1], ), '' );
     }
 }
