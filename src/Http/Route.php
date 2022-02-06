@@ -85,6 +85,7 @@ class Route
     /** 
      * This Method Will get the route array parsed from the routes.yaml and do all the ncecessary checks on it throw exceptions when something is off or just set all values on this classes properties if all goes well.
      * @return void  */
+
     private function setUpRouteDefinition(array $definition) : void // TODO: NEXT
     {
         // check if the http methods are properly configured.
@@ -109,7 +110,8 @@ class Route
     }
 
     public function call($request = array())
-    {
-        call_user_func_array($this->controller, $request);
+    {   
+        // TODO : replace request array with the request interface / base class
+        call_user_func($this->controller, $request);
     }
 }
