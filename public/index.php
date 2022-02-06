@@ -12,7 +12,6 @@ try {
 } catch (\Exception $e) {
     // TODO: Exception Handler here
     if (!Configuration::isDebug()) {
-        header('Content-Type: application/json; charset=utf-8');
         $body = json_encode(['Error' => ['Message' => 'An Unexpected Error Occured. Contact a  site admin.']]);
         JsonResponse::send($body);
     } else {
