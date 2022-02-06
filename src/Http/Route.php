@@ -22,7 +22,7 @@ class Route
     {
         // TODO: check $definition and if it contains all required keys and if they are set -> check if the methods are valid https methods -> then check if the controller and funciton exists -> if they are callable
         $this->name = $name;
-        $this->setUpRouteDefinition($definition);
+        $this->setupRoute($definition);
     }
 
     /**
@@ -88,7 +88,7 @@ class Route
      * This Method Will get the route array parsed from the routes.yaml and do all the ncecessary checks on it throw exceptions when something is off or just set all values on this classes properties if all goes well.
      * @return void  */
 
-    private function setUpRouteDefinition(array $definition): void // TODO: NEXT
+    private function setupRoute(array $definition): void // TODO: NEXT
     {
         // check if the http methods are properly configured.
         if ( !array_key_exists('Methods', $definition)) {
@@ -113,6 +113,8 @@ class Route
         }
 
         $this->controller = $definition['Controller'];
+
+        return;
     }
 
     public function call($request = array())
