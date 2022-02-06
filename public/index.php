@@ -3,6 +3,7 @@
 require_once(dirname(dirname(__FILE__)) . '/vendor/' . 'autoload.php');
 
 use Cuckoo\Config\Configuration;
+use Cuckoo\Http\Responses\JsonResponse;
 use Cuckoo\Kernel;
 
 try {
@@ -12,7 +13,8 @@ try {
     // TODO: Exception Handler here
     if (!Configuration::isDebug()) {
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(['Error' => ['Message' => 'An Unexpected Error Occured. Contact a  site admin.']]);
+        $body = json_encode(['Error' => ['Message' => 'An Unexpected Error Occured. Contact a  site admin.']]);
+        JsonResponse::send($body);
     } else {
         echo '<pre>';
         var_dump($e);
