@@ -31,7 +31,7 @@ class Router
 
     /**
      * This will compare the current request to a matching routing entry.
-     * If it is found and checks complete a viable controller function is called and.
+     * If it is found and checks complete a viable controller function is called.
      * 
      * @return void 
      * @throws \Cuckoo\Exceptions\Http\RouteNotFoundException 
@@ -40,13 +40,11 @@ class Router
     public function handleRequest(): void
     {
         $routeName = $this->server->getRequestedUrl();
+        $routeDefinitionArray = $this->getRouteArray($routeName);
 
-        if (!array_key_exists($routeName, $this->routes)) {
-            throw new RouteNotFoundException($routeName);
-        }
-
-        $route = new Route($routeName, $this->routes[$routeName]); // TODO: eill be moved to DI container + initialization at constructor
+        $route = new Route($routeName, $routeDefinitionArray); // TODO: eill be moved to DI container + initialization at constructor
         $this->callRoute($route);
+
 
         // check if the controller exists
         // check if the function exists
@@ -65,6 +63,33 @@ class Router
     public function getServer(): Server
     {
         return $this->server;
+    }
+
+    /**
+     * Get $routes;
+     * 
+     * 
+     *  @return array  */
+    public function getRoutes() : array
+    {
+        return $this->routes;
+    }
+
+    /**
+     * Gets the defined route parameters for the provided routename. This provides similar Functionality as route exists but with the found route array if there is one.
+     * 
+     * 
+     * @param string $routeName 
+     * @return array 
+     * @throws \Cuckoo\Exceptions\Http\RouteNotFoundException 
+     */
+    public function getRouteArray(string $routeName) : array
+    {
+        if (!array_key_exists($routeName, $this->routes)) {
+            throw new RouteNotFoundException($routeName);
+        }
+
+        return $this->routes[$routeName];
     }
 
     private function callRoute(Route $route): void
