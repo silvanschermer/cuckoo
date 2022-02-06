@@ -9,20 +9,56 @@ use stdClass;
  *  @package Cuckoo\Http */
 class Server
 {
-    private \stdClass $server;
+    private string $requestMethod = '';
+    private string $requestUri = '';
 
     public function __construct()
     {
-        $this->server = (object) $_SERVER;
+        $server = (object) $_SERVER;
+        $this->requestMethod = $server->REQUEST_METHOD;
+        $this->requestUri = $server->REQUEST_URI;
     }
 
+    /** 
+     * Get The value of requestMethod
+     * 
+     * @return string  */
     public function getRequestMethod() : string
     {
-        return $this->server->REQUEST_METHOD;
+        return $this->requestMethod;
     }
 
+    /**
+     * 
+     * Get The value of requestUri
+     * 
+     *  @return string  */
     public function getRequestedUrl() : string
     {
-        return $this->server->REQUEST_URI;
+        return $this->requestUri;
+    }
+
+    /**
+     * Set the value of requestUri
+     *
+     * @return  self
+     */ 
+    public function setRequestUri($requestUri) : self
+    {
+        $this->requestUri = $requestUri;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of requestMethod
+     *
+     * @return  self
+     */ 
+    public function setRequestMethod($requestMethod) : self
+    {
+        $this->requestMethod = $requestMethod;
+
+        return $this;
     }
 }
