@@ -23,53 +23,65 @@ class Router
         if (!isset($routeConfigFileValues['Routes'])) {
             throw new RoutesNotDefinedException();
         }
+
         $this->routes = $routeConfigFileValues['Routes'];
 
-        $this->server = $this->getServer();
+        $this->server = new Server(); // TODO: DI
     }
 
     /**
      * This will compare the current request to a matching routing entry.
-     * If it is found and checks complete a viable controller function is called and.
+     * If it is found and checks complete a viable controller function is called.
      * 
-     * @return void 
-     * @throws \Cuckoo\Exceptions\Http\RouteNotFoundException 
-     * @throws \Cuckoo\Exceptions\Http\HttpMethodNotSupportedByRouteException 
+     * @return void
      */
-    public function handleRequest() : void
+    public function handleRequest(): void
     {
         $routeName = $this->server->getRequestedUrl();
+        // checks if the route exists and returns it.
+        $routeDefinitionArray = $this->getRouteArray($routeName);
 
+        $route = new Route($routeName, $routeDefinitionArray); // TODO: eill be moved to DI container + initialization at constructor
+        $this->callRoute($route);
+    }
+
+    /**
+     * Gets Current Server or Creates and returns a new Server instance. 
+     * @return \Cuckoo\Http\Server  */
+    public function getServer(): Server
+    {
+        return $this->server;
+    }
+
+    /**
+     * Get $routes;
+     * 
+     * 
+     *  @return array  */
+    public function getRoutes() : array
+    {
+        return $this->routes;
+    }
+
+    /**
+     * Gets the defined route parameters for the provided routename. This provides similar Functionality as route exists but with the found route array if there is one.
+     * 
+     * 
+     * @param string $routeName 
+     * @return array 
+     * @throws \Cuckoo\Exceptions\Http\RouteNotFoundException 
+     */
+    public function getRouteArray(string $routeName) : array
+    {
         if (!array_key_exists($routeName, $this->routes)) {
             throw new RouteNotFoundException($routeName);
         }
 
-        $route = new Route( $routeName, $this->routes[$routeName] ); // TODO: eill be moved to DI container + initialization at constructor
-        $method = $this->server->getRequestMethod();
-
-        if( ! $route->isAllowedMethod($method) ) {
-            throw new HttpMethodNotSupportedByRouteException($method, $routeName);
-        }
-
-        
-        // check if the controller exists
-        // check if the function exists
-        // reflect on that function parameters and create the request object
-        // throw an exception if one of the above + the request class does not exist and when the request class is not the type of the requested class, inject the class if possible ?? factory methods....
-        // call user function array
-        // echo hello done....
-
-        
-
-        // check route and request type
+        return $this->routes[$routeName];
     }
 
-    /**
-     * Creates and returns a new Server instance. 
-     * @return \Cuckoo\Http\Server  */
-    public function getServer() : Server
+    private function callRoute(Route $route): void
     {
-        return (new Server());
+        $route->call();
     }
-
 }
