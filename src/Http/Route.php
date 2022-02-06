@@ -88,14 +88,15 @@ class Route
      * This Method Will get the route array parsed from the routes.yaml and do all the ncecessary checks on it throw exceptions when something is off or just set all values on this classes properties if all goes well.
      * @return void  */
 
-    private function setupRoute(array $definition): void // TODO: NEXT
+    private function setupRoute(array $definition): void
     {
         // check if the http methods are properly configured.
         if ( !array_key_exists('Methods', $definition)) {
             throw new HttpMethodNotDefinedForRouteException();
         }
-        $this->methods = $definition['Methods'];
 
+        $this->methods = $definition['Methods'];
+        // check if the defined methods are valid http methods
         foreach ($this->methods as $potentialHttpMethodString) {
             if (!HttpMethodHelper::isValidHttpMethod($potentialHttpMethodString)) {
                 throw new HttpNotHttpMethodException($potentialHttpMethodString, $this->name);
@@ -103,7 +104,7 @@ class Route
         }
 
         // check if the Controller entry is properly setup.
-        // this will make sure we have a string with contents that are callable.
+        // this will make sure we have a string with contents that is callable.
         if (strpos($definition['Controller'], '::') === false) {
             throw new Exception('Controller definition is missing a method :: callable');
         }
