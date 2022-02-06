@@ -2,8 +2,10 @@
 
 namespace Cuckoo\Http;
 
+use Cuckoo\Exceptions\Http\HttpMethodNotDefinedForRouteException;
 use Cuckoo\Exceptions\Http\HttpMethodNotSupportedByRouteException;
 use Cuckoo\Exceptions\Http\NotHttpMethodException as HttpNotHttpMethodException;
+use Cuckoo\Exceptions\Http\RouteControllerMethodNotCallableException;
 use Cuckoo\Exceptions\NotHttpMethodException;
 use Cuckoo\Helpers\HttpMethodHelper;
 use Exception;
@@ -11,10 +13,10 @@ use Exception;
 class Route
 {
 
+    // properties will be set from what is defined in the respective routes.yaml entry.Pfor
     private array $methods = array();
     private string $name = '';
     private string $controller = '';
-    private string $controllerFunction = '';
 
     public function __construct(string $name, array $definition)
     {
@@ -89,16 +91,25 @@ class Route
     private function setUpRouteDefinition(array $definition): void // TODO: NEXT
     {
         // check if the http methods are properly configured.
+        if ( !array_key_exists('Methods', $definition)) {
+            throw new HttpMethodNotDefinedForRouteException();
+        }
         $this->methods = $definition['Methods'];
-        foreach ($definition['Methods'] as $potentialHttpMethodString) {
+
+        foreach ($this->methods as $potentialHttpMethodString) {
             if (!HttpMethodHelper::isValidHttpMethod($potentialHttpMethodString)) {
                 throw new HttpNotHttpMethodException($potentialHttpMethodString, $this->name);
             }
         }
 
         // check if the Controller entry is properly setup.
+        // this will make sure we have a string with contents that are callable.
         if (strpos($definition['Controller'], '::') === false) {
-            throw new Exception('Controller definition is missing a method ::');
+            throw new Exception('Controller definition is missing a method :: callable');
+        }
+
+        if (!is_callable($definition['Controller'])) {
+            throw new RouteControllerMethodNotCallableException();
         }
 
         $callables = explode('::', $definition['Controller']);

@@ -33,28 +33,16 @@ class Router
      * This will compare the current request to a matching routing entry.
      * If it is found and checks complete a viable controller function is called.
      * 
-     * @return void 
-     * @throws \Cuckoo\Exceptions\Http\RouteNotFoundException 
-     * @throws \Cuckoo\Exceptions\Http\HttpMethodNotSupportedByRouteException 
+     * @return void
      */
     public function handleRequest(): void
     {
         $routeName = $this->server->getRequestedUrl();
+        // checks if the route exists and returns it.
         $routeDefinitionArray = $this->getRouteArray($routeName);
 
         $route = new Route($routeName, $routeDefinitionArray); // TODO: eill be moved to DI container + initialization at constructor
         $this->callRoute($route);
-
-
-        // check if the controller exists
-        // check if the function exists
-        // reflect on that function parameters and create the request object
-        // throw an exception if one of the above + the request class does not exist and when the request class is not the type of the requested class, inject the class if possible ?? factory methods....
-        // call user function array
-        // echo hello done....
-
-
-        // check route and request type
     }
 
     /**
