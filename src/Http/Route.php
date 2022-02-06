@@ -19,30 +19,60 @@ class Route
         $this->controllerFunction = '';
     }
 
+    /**
+     * Get $methods.
+     * 
+     * 
+     *  @return array  */
     public function getMethods(): array
     {
         return $this->methods;
     }
 
+    /**
+     * Get $name.
+     * 
+     * 
+     *  @return string  */
     public function getName(): string
     {
         return $this->name;
     }
 
-    public function setMethods(array $methods): void
+    /**
+     * Sets $methods
+     * 
+     * 
+     * @param array $methods 
+     * @return \Cuckoo\Http\Route 
+     */
+    public function setMethods(array $methods): self
     {
         $this->methods = $methods;
+
+        return $this;
     }
 
-    public function setName(string $name): void
+    /**
+     * Sets $name.
+     * 
+     * 
+     * @param string $name 
+     * @return \Cuckoo\Http\Route 
+     */
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
+
     /**
-     * Checks wether the passed method is in the objects methods array or not.
+     * Checks wether the passed method is in $methods.
      * @param string $httpMethod 
      * @return bool 
      */
+
     public function isAllowedMethod(string $httpMethod): bool
     {
         return in_array($httpMethod, $this->getMethods());
@@ -52,5 +82,7 @@ class Route
      * This Method Will get the route array parsed from the routes.yaml and do all the ncecessary checks on it throw exceptions when something is off or just set all values on this classes properties if all goes well.
      * @return void  */
     private function setUpRouteDefinition() : void // TODO: NEXT
-    {}
+    {
+
+    }
 }

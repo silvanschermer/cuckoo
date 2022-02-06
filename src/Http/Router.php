@@ -23,6 +23,7 @@ class Router
         if (!isset($routeConfigFileValues['Routes'])) {
             throw new RoutesNotDefinedException();
         }
+        
         $this->routes = $routeConfigFileValues['Routes'];
 
         $this->server = $this->getServer();
@@ -36,7 +37,7 @@ class Router
      * @throws \Cuckoo\Exceptions\Http\RouteNotFoundException 
      * @throws \Cuckoo\Exceptions\Http\HttpMethodNotSupportedByRouteException 
      */
-    public function handleRequest() : void
+    public function handleRequest(): void
     {
         $routeName = $this->server->getRequestedUrl();
 
@@ -44,14 +45,13 @@ class Router
             throw new RouteNotFoundException($routeName);
         }
 
-        $route = new Route( $routeName, $this->routes[$routeName] ); // TODO: eill be moved to DI container + initialization at constructor
+        $route = new Route($routeName, $this->routes[$routeName]); // TODO: eill be moved to DI container + initialization at constructor
         $method = $this->server->getRequestMethod();
 
-        if( ! $route->isAllowedMethod($method) ) {
+        if (!$route->isAllowedMethod($method)) {
             throw new HttpMethodNotSupportedByRouteException($method, $routeName);
         }
 
-        
         // check if the controller exists
         // check if the function exists
         // reflect on that function parameters and create the request object
@@ -59,7 +59,6 @@ class Router
         // call user function array
         // echo hello done....
 
-        
 
         // check route and request type
     }
@@ -67,9 +66,8 @@ class Router
     /**
      * Creates and returns a new Server instance. 
      * @return \Cuckoo\Http\Server  */
-    public function getServer() : Server
+    public function getServer(): Server
     {
         return (new Server());
     }
-
 }
