@@ -20,10 +20,11 @@ WIP Simple Framework with Routing, Request injection etc...
 - Respsonses
 - DI Container
 - Tests
-- Split Src from user Skeleton 
+- Split Src from user Skeleton
 - Add Logger Class
 
 
 ## SETUP
+- php 7.4
 1. run Composer Update.
 2. point your htaccess, site config or x to /public.]
