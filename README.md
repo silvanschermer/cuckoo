@@ -16,6 +16,7 @@ WIP Simple Framework with Routing, Request injection etc...
 - DI Container
 - Tests
 - Split Src from user Skeleton 
+- Add Logger Class
 
 
 ## SETUP

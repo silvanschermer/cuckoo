@@ -9,7 +9,7 @@ class Controller extends BaseController
     public function index($request)
     {
         $body = json_encode(['Message' => 'Cuckoo!']);
-        return JsonResponse::send($body);
+        return JsonResponse::send('asd');
 
     }
 }
