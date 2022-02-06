@@ -56,7 +56,6 @@ class Configuration
      * Get the specified config option.
      * 
      * 
-     * 
      * @param string $name 
      * @return string 
      */
