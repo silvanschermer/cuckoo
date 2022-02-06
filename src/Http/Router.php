@@ -67,7 +67,7 @@ class Router
         return $this->server;
     }
 
-    private function callRoute(Route $route) : void
+    private function callRoute(Route $route): void
     {
         $route->call();
     }

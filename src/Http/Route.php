@@ -86,31 +86,30 @@ class Route
      * This Method Will get the route array parsed from the routes.yaml and do all the ncecessary checks on it throw exceptions when something is off or just set all values on this classes properties if all goes well.
      * @return void  */
 
-    private function setUpRouteDefinition(array $definition) : void // TODO: NEXT
+    private function setUpRouteDefinition(array $definition): void // TODO: NEXT
     {
         // check if the http methods are properly configured.
-        $this->methods = $definition ['Methods'];
-        foreach ($definition ['Methods'] as $potentialHttpMethodString) {
-            if(!HttpMethodHelper::isValidHttpMethod($potentialHttpMethodString)) {
+        $this->methods = $definition['Methods'];
+        foreach ($definition['Methods'] as $potentialHttpMethodString) {
+            if (!HttpMethodHelper::isValidHttpMethod($potentialHttpMethodString)) {
                 throw new HttpNotHttpMethodException($potentialHttpMethodString, $this->name);
             }
         }
 
         // check if the Controller entry is properly setup.
-        if (strpos($definition ['Controller'], '::') === false) {
+        if (strpos($definition['Controller'], '::') === false) {
             throw new Exception('Controller definition is missing a method ::');
         }
 
-        $callables = explode('::', $definition ['Controller']);
+        $callables = explode('::', $definition['Controller']);
         $this->controller = $callables[0];
         $this->controllerFunction = $callables[1];
 
-        $this->controller = $definition ['Controller'];
-
+        $this->controller = $definition['Controller'];
     }
 
     public function call($request = array())
-    {   
+    {
         // TODO : replace request array with the request interface / base class
         call_user_func($this->controller, $request);
     }
