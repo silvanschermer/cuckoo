@@ -4,6 +4,7 @@ namespace Cuckoo\Helpers;
 
 class HttpMethodHelper
 {
+    // a list of valid http methods from https://datatracker.ietf.org/doc/html/rfc7231#section-4
     const METHODS = array(
         'GET',
         'POST',

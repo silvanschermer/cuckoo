@@ -7,5 +7,5 @@ namespace Cuckoo\Http\Responses;
  * @package Cuckoo\Exceptions\Http\Responses */
 interface IResponse
 {
-    public static function send(string $body, int $statusCode): void;
+    public static function send(string $body, int $statusCode): self;
 }

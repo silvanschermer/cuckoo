@@ -47,6 +47,9 @@ class Router
 
     /**
      * Gets Current Server or Creates and returns a new Server instance. 
+     * 
+     * 
+     * 
      * @return \Cuckoo\Http\Server  */
     public function getServer(): Server
     {
@@ -58,7 +61,7 @@ class Router
      * 
      * 
      *  @return array  */
-    public function getRoutes() : array
+    public function getRoutes(): array
     {
         return $this->routes;
     }
@@ -71,7 +74,7 @@ class Router
      * @return array 
      * @throws \Cuckoo\Exceptions\Http\RouteNotFoundException 
      */
-    public function getRouteArray(string $routeName) : array
+    public function getRouteArray(string $routeName): array
     {
         if (!array_key_exists($routeName, $this->routes)) {
             throw new RouteNotFoundException($routeName);
@@ -80,6 +83,13 @@ class Router
         return $this->routes[$routeName];
     }
 
+    /**
+     * Decorator for $route->call()
+     * 
+     * 
+     * @param \Cuckoo\Http\Route $route 
+     * @return void 
+     */
     private function callRoute(Route $route): void
     {
         $route->call();
