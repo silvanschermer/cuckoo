@@ -2,6 +2,12 @@
 
 namespace Cuckoo\Http;
 
+use Cuckoo\Exceptions\Http\HttpMethodNotSupportedByRouteException;
+use Cuckoo\Exceptions\Http\NotHttpMethodException as HttpNotHttpMethodException;
+use Cuckoo\Exceptions\NotHttpMethodException;
+use Cuckoo\Helpers\HttpMethodHelper;
+use Exception;
+
 class Route
 {
 
@@ -14,9 +20,7 @@ class Route
     {
         // TODO: check $definition and if it contains all required keys and if they are set -> check if the methods are valid https methods -> then check if the controller and funciton exists -> if they are callable
         $this->name = $name;
-        $this->methods = $definition;
-        $this->controller = '';
-        $this->controllerFunction = '';
+        $this->setUpRouteDefinition($definition);
     }
 
     /**
@@ -81,8 +85,31 @@ class Route
     /** 
      * This Method Will get the route array parsed from the routes.yaml and do all the ncecessary checks on it throw exceptions when something is off or just set all values on this classes properties if all goes well.
      * @return void  */
-    private function setUpRouteDefinition() : void // TODO: NEXT
+    private function setUpRouteDefinition(array $definition) : void // TODO: NEXT
     {
+        // check if the http methods are properly configured.
+        $this->methods = $definition ['Methods'];
+        foreach ($definition ['Methods'] as $potentialHttpMethodString) {
+            if(!HttpMethodHelper::isValidHttpMethod($potentialHttpMethodString)) {
+                throw new HttpNotHttpMethodException($potentialHttpMethodString, $this->name);
+            }
+        }
 
+        // check if the Controller entry is properly setup.
+        if (strpos($definition ['Controller'], '::') === false) {
+            throw new Exception('Controller definition is missing a method ::');
+        }
+
+        $callables = explode('::', $definition ['Controller']);
+        $this->controller = $callables[0];
+        $this->controllerFunction = $callables[1];
+
+        $this->controller = $definition ['Controller'];
+
+    }
+
+    public function call($request = array())
+    {
+        call_user_func_array($this->controller, $request);
     }
 }

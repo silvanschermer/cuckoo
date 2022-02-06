@@ -23,10 +23,10 @@ class Router
         if (!isset($routeConfigFileValues['Routes'])) {
             throw new RoutesNotDefinedException();
         }
-        
+
         $this->routes = $routeConfigFileValues['Routes'];
 
-        $this->server = $this->getServer();
+        $this->server = new Server(); // TODO: DI
     }
 
     /**
@@ -46,11 +46,7 @@ class Router
         }
 
         $route = new Route($routeName, $this->routes[$routeName]); // TODO: eill be moved to DI container + initialization at constructor
-        $method = $this->server->getRequestMethod();
-
-        if (!$route->isAllowedMethod($method)) {
-            throw new HttpMethodNotSupportedByRouteException($method, $routeName);
-        }
+        $this->callRoute($route);
 
         // check if the controller exists
         // check if the function exists
@@ -64,10 +60,15 @@ class Router
     }
 
     /**
-     * Creates and returns a new Server instance. 
+     * Gets Current Server or Creates and returns a new Server instance. 
      * @return \Cuckoo\Http\Server  */
     public function getServer(): Server
     {
-        return (new Server());
+        return $this->server;
+    }
+
+    private function callRoute(Route $route)
+    {
+        $route->call();
     }
 }

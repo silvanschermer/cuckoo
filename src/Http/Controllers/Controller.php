@@ -1,8 +1,8 @@
 <?php
 
-namespace Cuckoo\Exceptions\Http\Controllers;
+namespace Cuckoo\Http\Controllers;
 
-use BaseController;
+use Cuckoo\Http\Controllers\BaseController;
 
 class Controller extends BaseController
 {

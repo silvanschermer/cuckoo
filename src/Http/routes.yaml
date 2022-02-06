@@ -1,7 +1,6 @@
 Routes:
   /:
-    Methods: GET
-    Controller: 
-  /hello:
-    Methods: post get
-    Controller: Http\Controllers\Controller::Index
+    Methods:
+      - GET
+      - POST
+    Controller: Cuckoo\Http\Controllers\Controller::Index
