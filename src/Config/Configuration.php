@@ -25,6 +25,11 @@ class Configuration
         $this->handleDebugMode();
     }
 
+    /**
+     * When Called it will check if Debug var isset and depending on the boolean value ini_set display_errors
+     * 
+     * 
+     *  @return void  */
     private function handleDebugMode(): void
     {
         if ((new self())->isDebug()) {
@@ -35,6 +40,11 @@ class Configuration
     }
 
 
+    /**
+     * Checks wether Debug is true or false,
+     * 
+     * 
+     *  @return bool  */
     public static function isDebug(): bool
     {
         $isDebug = Configuration::get('DEBUG');
@@ -42,6 +52,14 @@ class Configuration
         return $isDebug;
     }
 
+    /**
+     * Get the specified config option.
+     * 
+     * 
+     * 
+     * @param string $name 
+     * @return string 
+     */
     public static function get(string $name): string
     {
         $value = (new self())->config[$name];
@@ -50,6 +68,6 @@ class Configuration
             return $value;
         }
 
-        return '';
+        return ''; // TODO: Log a warning when this case is hit.
     }
 }
