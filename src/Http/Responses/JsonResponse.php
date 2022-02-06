@@ -2,10 +2,9 @@
 
 namespace Cuckoo\Http\Responses;
 
-use Cuckoo\Exceptions\Http\NotAJsonBodyException as HttpNotAJsonBodyException;
-use NotAJsonBodyException;
+use Cuckoo\Exceptions\Http\NotAJsonBodyException;
 
-class JsonResponse implements IResponse
+final class JsonResponse implements IResponse
 {
     /**
      * 
@@ -17,7 +16,7 @@ class JsonResponse implements IResponse
     public static function send(string $body = '', int $statusCode = 200): void
     {
         if (is_null(json_decode($body))) {
-            throw new HttpNotAJsonBodyException();
+            throw new NotAJsonBodyException();
         }
         
         http_response_code($statusCode);
