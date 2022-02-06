@@ -13,7 +13,7 @@ WIP Simple Framework with Routing, Request injection etc...
 ## Adding New Configuration Features/Entries:
 - The config class parses the configuration file.
 - Add a new function for each new configuration entry/feature you want the class to handle.
-- Call the function In HandleConfiguration if you need the Option to be run on app statup.
+- Call the function In HandleConfiguration if you need the Option to be run on app startup.
 
 ## TODO:
 - Requests
