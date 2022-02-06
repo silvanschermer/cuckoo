@@ -9,6 +9,16 @@ WIP Simple Framework with Routing, Request injection etc...
       - POST
     Controller: Http\Controllers\Controller::Index
 ```
+
+## TODO:
+- Requests
+- Respsonses
+- DI Container
+- Tests
+- Split Src from user Skeleton 
+- Add Logger Class
+
+
 ## SETUP
 1. run Composer Update.
 2. point your htaccess, site config or x to /public.]

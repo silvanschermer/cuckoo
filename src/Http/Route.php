@@ -2,12 +2,13 @@
 
 namespace Cuckoo\Http;
 
+use Cuckoo\Helpers\HttpMethodHelper;
+
 use Cuckoo\Exceptions\Http\HttpMethodNotDefinedForRouteException;
 use Cuckoo\Exceptions\Http\HttpMethodNotSupportedByRouteException;
 use Cuckoo\Exceptions\Http\NotHttpMethodException as HttpNotHttpMethodException;
 use Cuckoo\Exceptions\Http\RouteControllerMethodNotCallableException;
 use Cuckoo\Exceptions\NotHttpMethodException;
-use Cuckoo\Helpers\HttpMethodHelper;
 use Exception;
 
 class Route

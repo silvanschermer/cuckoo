@@ -2,15 +2,14 @@
 
 namespace Cuckoo\Http\Controllers;
 
-use Cuckoo\Http\Controllers\BaseController;
+use Cuckoo\Http\Responses\JsonResponse;
 
 class Controller extends BaseController
 {
     public function index($request)
     {
-        // Replace this by a response class that can set the body and the http emthod
-        header('Content-Type: application/json; charset=utf-8');
-        http_response_code(200);
-        echo  json_encode(['Message' => 'Cuckoo!']);
+        $body = json_encode(['Message' => 'Cuckoo!']);
+        return JsonResponse::send('asd');
+
     }
 }
