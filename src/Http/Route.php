@@ -112,10 +112,6 @@ class Route
             throw new RouteControllerMethodNotCallableException();
         }
 
-        $callables = explode('::', $definition['Controller']);
-        $this->controller = $callables[0];
-        $this->controllerFunction = $callables[1];
-
         $this->controller = $definition['Controller'];
     }
 
