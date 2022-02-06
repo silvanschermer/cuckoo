@@ -1,7 +1,8 @@
 Routes:
   /:
-    Methods: GET
-    Controller: 
-  /hello:
-    Methods: post get
-    Controller: Controller::Hello
+    Methods:
+      - GET
+      - POST
+    Controller: Cuckoo\Http\Controllers\Controller::Index
+    Privacy : 
+      - public # TODO: here we can block requests if the session is not authenticated.
